@@ -1,0 +1,4 @@
+default 0
+timeout 10
+title FSD
+kernel /kernel vga=0x192
