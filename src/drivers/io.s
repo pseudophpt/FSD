@@ -14,7 +14,7 @@ in_byte:
 
     mov dx, [ebp + 8]
 
-    inb
+    in al, dx
 
     leave
     ret
@@ -25,7 +25,7 @@ in_word:
 
     mov dx, [ebp + 8]
 
-    inw 
+    in ax, dx
 
     leave
     ret
@@ -36,7 +36,7 @@ in_long:
 
     mov dx, [ebp + 8]
 
-    inl
+    in eax, dx
 
     leave
     ret
@@ -48,7 +48,7 @@ out_byte:
     mov dx, [ebp + 8]
     mov al, [ebp + 12]
 
-    outb 
+    out dx, al
 
     leave 
     ret
@@ -60,7 +60,7 @@ out_word:
     mov dx, [ebp + 8]
     mov ax, [ebp + 12]
 
-    outw 
+    out dx, ax
 
     leave 
     ret
@@ -72,7 +72,7 @@ out_long:
     mov dx, [ebp + 8]
     mov eax, [ebp + 12]
 
-    outl
+    out dx, eax
 
     leave 
     ret
