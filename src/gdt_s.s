@@ -10,6 +10,7 @@ gdtr:
     dd 0
 
 load_gdt:
+    ; C calling conventions
     push ebp
     mov ebp, esp
     
@@ -21,11 +22,12 @@ load_gdt:
     mov eax, dword [ebp + 8]  
     mov [gdtr + 2], eax
     
-    lgdt [gdtr]
+    lgdt [gdtr] ; Load GDT
     
     jmp KERNEL_CODE:.jmp ; far jump loads new code segment
     
 .jmp:
+    ; Load new data segmnts
     mov ax, KERNEL_DATA
     
     mov ds, ax

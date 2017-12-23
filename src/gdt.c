@@ -30,7 +30,9 @@ void encode_gdtentry (uint8_t *entry_ptr, gdt_entry_t *entry) {
 
 void setup_gdt () {
     
-    gdt_entry_t null_entry = {.base = 0, .limit = 0, .type = 0};
+    /* GDT entries for user, kernel, and TSS for switching to userspace */
+    
+    gdt_entry_t null_entry = {.base = 0, .limit = 0, .type = 0}; /* Null entry required by x86 */
     
     gdt_entry_t kernel_code = {.base = 0, .limit = 0xFFFFF, .type = 0x9A};
     gdt_entry_t kernel_data = {.base = 0, .limit = 0xFFFFF, .type = 0x92};
@@ -38,8 +40,10 @@ void setup_gdt () {
     gdt_entry_t user_code = {.base = 0, .limit = 0xFFFFF, .type = 0xFA};
     gdt_entry_t user_data = {.base = 0, .limit = 0xFFFFF, .type = 0xF2};
     
-    gdt_entry_t tss_entry = {.base = (uint32_t)&tss, .limit = sizeof(tss), .type=0x89};
-
+    gdt_entry_t tss_entry = {.base = (uint32_t)&tss, .limit = sizeof(tss), .type=0x89}; /* x86 reads SS0 and ESP0 from the TSS when switching privileges*/
+    
+    /* Encode them in the GDT */
+    
     encode_gdtentry(&gdt[0], &null_entry);
     encode_gdtentry(&gdt[8], &kernel_code);
     encode_gdtentry(&gdt[16], &kernel_data);
