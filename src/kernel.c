@@ -3,14 +3,15 @@
 
 #include "gdt.h"
 #include "idt.h"
+#include "mem/paging.h"
+#include "mem/phys_allocator.h"
 
 void kernel_init (void) {
     setup_gdt();
     setup_idt();
-    *(int *)3 = 4;
+    setup_paging();
+    init_phys_page_stack(); 
     while(1);
-
-
 }
 
 
